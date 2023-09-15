@@ -54,4 +54,25 @@ def multiply(a,b):
   digitalPotWrite(1, steps_r2)
   return read(0)
   
-    
+def multiply(a,b):
+  if a == 0 or b == 0: raise Exception("no 0!!")
+  R_eq = (5000)/b #dividing 5/b would be too small to put on the digipots and would assume a too large of a current
+  R1 = a # just A
+  R2 = R_eq - R1 # need to have this value so that the total R_eq stays the same
+  steps_r1 = to_steps(R1)
+  steps_r2 = to_steps(R2)
+  digitalPotWrite(0, steps_r1)
+  digitalPotWrite(1, steps_r2)
+  return (255-read(0))*(5000/256)
+
+def error(a,b):
+  true_value = a*b
+  v = multiply(a,b)
+  return (v-true_value)/true_value
+
+data = {}
+for a in range(1, 120):
+  for b in range(1, 9):
+    data[a] = data.get(a, []) + [error(a*88, b)]
+
+print(data)
