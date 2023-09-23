@@ -3,6 +3,7 @@ import time
 from gpiozero import LED
 from smbus import SMBus
 from math import log
+import sys
 
 address = 0x00
 STEPS = 128
@@ -63,7 +64,7 @@ def multiply(a,b):
   
   # the amount to multiply b by to make it in the I_interval
   b_factor = -int(log(a, 10)) - 4
-  mb *= 10**b_factor
+  mb = b * 10**b_factor
   if mb > I_interval[0]:
      mb *= 10
      #b_factor += 1
@@ -82,7 +83,7 @@ def multiply(a,b):
   steps_r2 = to_steps(R2)
   digitalPotWrite(0, steps_r1)
   digitalPotWrite(1, steps_r2)
-  return (255-read(0))*(5000/256)
+  return (255-read(0))*(5/256)*(10**(-1*(r_factor+b_factor)))
 
 def error(a,b):
   true_value = a*b
@@ -90,3 +91,4 @@ def error(a,b):
   return (v-true_value)/true_value
 
 
+print(multiply(int(sys.argv[1]), int(sys.argv[2])))
