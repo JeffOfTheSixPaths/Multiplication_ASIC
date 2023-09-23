@@ -73,6 +73,7 @@ def multiply(a,b):
       
   
   R_eq = (5)/mb 
+  print(R_eq)
   R1 = a # just A
   r_factor = 4 - log(a, 10)
   R1 *= r_factor
