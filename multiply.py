@@ -44,18 +44,6 @@ def read(input):
     bus.write_byte(id, adc_pins[input])
     return bus.read_byte(id)
 
-
-def multiply(a,b):
-  if a == 0 or b == 0: raise Exception("no 0!!")
-  R_eq = (5000)/b #dividing 5/b would be too small to put on the digipots and would assume a too large of a current
-  R1 = a # just A
-  R2 = R_eq - R1 # need to have this value so that the total R_eq stays the same
-  steps_r1 = to_steps(R1)
-  steps_r2 = to_steps(R2)
-  digitalPotWrite(0, steps_r1)
-  digitalPotWrite(1, steps_r2)
-  return read(0)
-
 I_interval = [0.001, 0.00009] #in A
 R_interval = [10**5, 100]
 
@@ -67,13 +55,14 @@ def multiply(a,b):
   mb = b * 10**b_factor
   if mb > I_interval[0]:
      mb *= 10
-     #b_factor += 1
+     b_factor += 1
 
   if mb < I_interval[1]:
      raise Exception(f"Cannot put {b} into the Current Interval: {mb}")
       
   
   R_eq = (5)/mb 
+  print(mb)
   print(R_eq)
   R1 = a # just A
   r_factor = 4 - log(a, 10)
