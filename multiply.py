@@ -44,7 +44,7 @@ def read(input):
     bus.write_byte(id, adc_pins[input])
     return bus.read_byte(id)
 
-I_interval = [0.001, 0.00009] #in A
+I_interval = [0.005, 0.00026] #in A
 R_interval = [10**5, 100]
 
 def multiply(a,b):
@@ -54,11 +54,13 @@ def multiply(a,b):
   b_factor = -int(log(a, 10)) - 4
   mb = b * 10**b_factor
   if mb > I_interval[0]:
-     mb *= 10
-     b_factor += 1
+     print('mb greater than max' + str(mb))
+     mb /= 10
+     b_factor -= 1
 
   if mb < I_interval[1]:
      raise Exception(f"Cannot put {b} into the Current Interval: {mb}")
+      
       
   
   R_eq = (5)/mb 
