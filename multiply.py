@@ -59,6 +59,11 @@ def multiply(a,b):
      b_factor -= 1
 
   if mb < I_interval[1]:
+     #raise Exception(f"Cannot put {b} into the Current Interval: {mb}")
+     mb *= 10
+     b_factor += 
+     
+  if mb < I_interval[1]:
      raise Exception(f"Cannot put {b} into the Current Interval: {mb}")
       
       
