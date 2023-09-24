@@ -63,14 +63,16 @@ def multiply(a,b):
      mb *= 10
      b_factor += 1
 
+  
   if mb < I_interval[1]:
+     
      raise Exception(f"Cannot put {b} into the Current Interval: {mb}")
 
 
 
   R_eq = (5)/mb
-  print(mb)
-  print(R_eq)
+  print(f'mb: {mb}')
+  print(f'Req: {R_eq}')
   R1 = a # just A
   r_factor = 3 - int(log(a, 10))
   R1 *= 10**r_factor
@@ -84,9 +86,9 @@ def multiply(a,b):
   steps_r2 = to_steps(R2)
   digitalPotWrite(0, steps_r1)
   digitalPotWrite(1, steps_r2)
-  print(f'r: {r_factor}\n i: {b_factor}')
-  print(R1)
-  print(R2)
+  print(f'r: {r_factor}\ni: {b_factor}')
+  print(f'R1: {R1}')
+  print(f'R2: {R2}')
   return (255-read(0))*(5/256)*(10**(-1*(r_factor+b_factor)))
 
 def error(a,b):
