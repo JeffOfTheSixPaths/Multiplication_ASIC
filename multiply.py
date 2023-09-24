@@ -74,12 +74,12 @@ def multiply(a,b):
   R1 = a # just A
   r_factor = 3 - int(log(a, 10))
   R1 *= 10**r_factor
-  R2 = R_eq - R1 # need to have this value so that the total R_eq stays the same
+  
 
   while R1 > R_eq: 
     R1 /= 10
     r_factor -= 1
-
+  R2 = R_eq - R1 # need to have this value so that the total R_eq stays the same
   steps_r1 = to_steps(R1)
   steps_r2 = to_steps(R2)
   digitalPotWrite(0, steps_r1)
