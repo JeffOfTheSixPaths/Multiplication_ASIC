@@ -97,4 +97,4 @@ def error(a,b):
   return (v-true_value)/true_value
 
 
-print(multiply(int(sys.argv[1]), int(sys.argv[2])))
+print(multiply(float(sys.argv[1]), float(sys.argv[2])))
