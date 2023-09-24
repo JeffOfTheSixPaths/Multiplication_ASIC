@@ -16,7 +16,7 @@ spi.open(0, 0) # Open SPI bus 0, device (CS) 0
 spi.max_speed_hz = 50000
 
 CS_pins = [20,16]
-for i,pin in enumerate(CS_pins): 
+for i,pin in enumerate(CS_pins):
     CS_pins[i] = LED(pin) #saying it's an LED because it's easy to control like that
     CS_pins[i].on()
 
@@ -49,9 +49,9 @@ R_interval = [10**5, 100]
 
 def multiply(a,b):
   if a == 0 or b == 0: raise Exception("no 0!!")
-  
+
   # the amount to multiply b by to make it in the I_interval
-  b_factor = -int(log(a, 10)) - 4
+  b_factor = -int(log(b, 10)) - 4
   mb = b * 10**b_factor
   if mb > I_interval[0]:
      print('mb greater than max' + str(mb))
@@ -61,24 +61,30 @@ def multiply(a,b):
   if mb < I_interval[1]:
      #raise Exception(f"Cannot put {b} into the Current Interval: {mb}")
      mb *= 10
-     b_factor += 
-     
+     b_factor += 1
+
   if mb < I_interval[1]:
      raise Exception(f"Cannot put {b} into the Current Interval: {mb}")
-      
-      
-  
-  R_eq = (5)/mb 
+
+
+
+  R_eq = (5)/mb
   print(mb)
   print(R_eq)
   R1 = a # just A
-  r_factor = 4 - log(a, 10)
-  R1 *= r_factor
+  r_factor = 3 - int(log(a, 10))
+  R1 *= 10**r_factor
   R2 = R_eq - R1 # need to have this value so that the total R_eq stays the same
+
+  while R1 > R_eq: R1 /= 10
+
   steps_r1 = to_steps(R1)
   steps_r2 = to_steps(R2)
   digitalPotWrite(0, steps_r1)
   digitalPotWrite(1, steps_r2)
+  print(f'r: {r_factor}\n i: {b_factor}')
+  print(R1)
+  print(R2)
   return (255-read(0))*(5/256)*(10**(-1*(r_factor+b_factor)))
 
 def error(a,b):
