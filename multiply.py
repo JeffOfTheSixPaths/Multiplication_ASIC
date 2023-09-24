@@ -76,7 +76,9 @@ def multiply(a,b):
   R1 *= 10**r_factor
   R2 = R_eq - R1 # need to have this value so that the total R_eq stays the same
 
-  while R1 > R_eq: R1 /= 10
+  while R1 > R_eq: 
+    R1 /= 10
+    r_factor -= 1
 
   steps_r1 = to_steps(R1)
   steps_r2 = to_steps(R2)
