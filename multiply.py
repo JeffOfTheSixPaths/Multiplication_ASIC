@@ -98,3 +98,15 @@ def error(a,b):
 
 
 print(multiply(float(sys.argv[1]), float(sys.argv[2])))
+
+
+get_data = 1
+data = {}
+if get_data:
+  import json
+  for a in range(1,1000):
+    data[a]={}
+    print(a)
+    for b in range(1,1000):
+      data[a][b]=error(a,b)
+  json.dump(data, open('data.json','w'))
