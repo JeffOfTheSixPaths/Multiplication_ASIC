@@ -2,7 +2,7 @@ import spidev
 import time
 from gpiozero import LED
 from smbus import SMBus
-from math import log
+from math import log, floor
 import sys
 
 address = 0x00
@@ -51,7 +51,7 @@ def multiply(a,b):
   if a == 0 or b == 0: raise Exception("no 0!!")
 
   # the amount to multiply b by to make it in the I_interval
-  b_factor = -int(log(b, 10)) - 4
+  b_factor = -floor(log(b, 10)) - 4
   mb = b * 10**b_factor
   if mb > I_interval[0]:
      print('mb greater than max' + str(mb))
@@ -74,7 +74,7 @@ def multiply(a,b):
   print(f'mb: {mb}')
   print(f'Req: {R_eq}')
   R1 = a # just A
-  r_factor = 3 - int(log(a, 10))
+  r_factor = 3 - floor(log(a, 10))
   R1 *= 10**r_factor
   
 
