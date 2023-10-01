@@ -1,5 +1,9 @@
 import numpy as np
 import h5py 
+import os
+import sys
+sys.path.add("../Multiplication_ASIC")
+from multiply import multiply as m
 from tensorflow.keras.datasets import mnist
 
 # Load the dataset into training and testing data
@@ -48,7 +52,7 @@ def dot(vector_a, vector_b):
     return sum(multiply(a,b) for a, b in zip(vector_a, vector_b))   
 
 def multiply(a, b):
-    return a*b
+    return m(a,b)
 
 correct = 0
 nums = {
