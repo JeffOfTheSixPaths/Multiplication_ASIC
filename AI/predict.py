@@ -17,12 +17,10 @@ hidden_layers = 2
 def predict(data):
 
     last_layer_output = data.flatten()
+    
     for layer in range(hidden_layers):
         last_layer_output = ( relu(dot_pb(weights[layer], last_layer_output)) )
-        
-        
-        #print(last_layer_output)
-        #print(len(out_data[0]))
+    
     #now all of the hidden layers have been computed
     # and now we have to computer the output layer
 
@@ -47,7 +45,7 @@ def dot_pb(wb, input):
     return np.array(sum) + np.array(wb['bias:0'])
 
 def dot(vector_a, vector_b):
-    return sum(a * b for a, b in zip(vector_a, vector_b))   
+    return sum(multiply(a,b) for a, b in zip(vector_a, vector_b))   
 
 def multiply(a, b):
     return a*b
@@ -57,9 +55,9 @@ nums = {
 }
 
 total = 1000 #60k
-for i, image in enumerate(train_images[:total]):
+for i, image in enumerate(test_images):
     prediction = predict(image)
-    label = train_labels[i]
+    label = test_labels[i]
     if prediction == label:
         correct += 1 
     else:
