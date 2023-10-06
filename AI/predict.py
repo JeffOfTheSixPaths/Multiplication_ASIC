@@ -52,15 +52,14 @@ def dot_pb(wb, input):
     return np.array(sum) + np.array(wb['bias:0'])
 
 def dot(vector_a, vector_b):
-    return sum(multiply(a*b) for a, b in zip(vector_a, vector_b))   
+    return sum(multiply(a,b) for a, b in zip(vector_a, vector_b))   
 
-def m(a,b):
-    if a == 0 or b == 0: return 0
-    return a*b
            
 def multiply(a, b):
-    for i, e in enumerate(a):
-        a[i] = m(e,b)
+    c = a
+    for i, e in enumerate(c):
+        c[i] = m(e,b)
+    return c
 
 correct = 0
 nums = {
