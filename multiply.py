@@ -50,8 +50,12 @@ R_interval = [10**5, 100]
 def multiply(a,b):
   if a == 0 or b == 0: return 0
   neg = 1
-  if a < 0: neg*=-1
-  if b < 0: neg*=-1
+  if a < 0: 
+    neg*=-1
+    a *=-1
+  if b < 0: 
+    neg*=-1
+    b*=-1
 
   # the amount to multiply b by to make it in the I_interval
   b_factor = -floor(log(b, 10)) - 4
