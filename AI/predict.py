@@ -1,6 +1,11 @@
 import numpy as np
 import h5py 
+import sys
+sys.path.append("../Multiplication_ASIC")
+from multiply import multiply as m
 from tensorflow.keras.datasets import mnist
+import os
+os.chdir("AI")
 
 # Load the dataset into training and testing data
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
