@@ -1,17 +1,27 @@
 import numpy as np
 import h5py 
 import sys
-sys.path.append("../Multiplication_ASIC")
-from multiply import multiply as m
-from tensorflow.keras.datasets import mnist
+
+digipot = True
+if digipot:
+  sys.path.append("../Multiplication_ASIC")
+  from multiply import multiply as m
 import os
 os.chdir("AI")
+from tensorflow.keras.datasets import mnist
+from skimage.util import random_noise
+
 
 # Load the dataset into training and testing data
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
 
-f = h5py.File('mnist_weightsh.h5', 'r')
+f = h5py.File('mnist_weights_norm_20.h5', 'r')
 
+seed = 71111104105116104328210110010012110
+normalize = True
+if normalize:
+    train_images = random_noise(train_images/255.0, rng = seed)
+    test_images = random_noise(test_images/255.0, rng = seed)
 
 weights = [f['dense']['dense'],
            f['dense_1']['dense_1']]
@@ -54,7 +64,10 @@ def dot_pb(wb, input):
 def dot(vector_a, vector_b):
     return sum(multiply(a,b) for a, b in zip(vector_a, vector_b))   
 
-           
+if not digipot:
+    def m(a,b):
+        return a*b
+
 def multiply(a, b):
     c = a
     for i, e in enumerate(c):
