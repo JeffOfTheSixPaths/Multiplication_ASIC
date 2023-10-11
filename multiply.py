@@ -48,7 +48,14 @@ I_interval = [0.005, 0.00026] #in A
 R_interval = [10**5, 100]
 
 def multiply(a,b):
-  if a == 0 or b == 0: raise Exception("no 0!!")
+  if a == 0 or b == 0: return 0
+  neg = 1
+  if a < 0: 
+    neg*=-1
+    a *=-1
+  if b < 0: 
+    neg*=-1
+    b*=-1
 
   # the amount to multiply b by to make it in the I_interval
   b_factor = -floor(log(b, 10)) - 4
@@ -71,8 +78,8 @@ def multiply(a,b):
 
 
   R_eq = (5)/mb
-  print(f'mb: {mb}')
-  print(f'Req: {R_eq}')
+  #print(f'mb: {mb}')
+  #print(f'Req: {R_eq}')
   R1 = a # just A
   r_factor = 3 - floor(log(a, 10))
   R1 *= 10**r_factor
@@ -86,10 +93,10 @@ def multiply(a,b):
   steps_r2 = to_steps(R2)
   digitalPotWrite(0, steps_r1)
   digitalPotWrite(1, steps_r2)
-  print(f'r: {r_factor}\ni: {b_factor}')
-  print(f'R1: {R1}')
-  print(f'R2: {R2}')
-  return (255-read(0))*(5/256)*(10**(-1*(r_factor+b_factor)))
+  #print(f'r: {r_factor}\ni: {b_factor}')
+  #print(f'R1: {R1}')
+  #print(f'R2: {R2}')
+  return (255-read(0))*(5/256)*(10**(-1*(r_factor+b_factor)))*(neg)
 
 def error(a,b):
   true_value = a*b
@@ -97,10 +104,10 @@ def error(a,b):
   return (v-true_value)/true_value
 
 
-print(multiply(float(sys.argv[1]), float(sys.argv[2])))
+#print(multiply(float(sys.argv[1]), float(sys.argv[2])))
 
 
-get_data = 1
+get_data = 0
 data = {}
 if get_data:
   import json
