@@ -16,7 +16,7 @@ from skimage.util import random_noise
 # Load the dataset into training and testing data
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
 
-f = h5py.File('mnist_weights_norm_20.h5', 'r')
+f = h5py.File('mnist_weights_norm_100.h5', 'r')
 
 seed = 71111104105116104328210110010012110
 normalize = True
@@ -83,6 +83,7 @@ nums = {
 total = 1000 #60k
 for i, image in enumerate(test_images[:1000]):
     prediction = predict(image)
+    print(str(prediction) + " " + str(label))
     label = test_labels[i]
     if prediction == label:
         correct += 1 
