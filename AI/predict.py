@@ -1,6 +1,6 @@
 import numpy as np
 import h5py 
-
+import time
 import sys
 
 digipot = True
@@ -17,15 +17,18 @@ from skimage.util import random_noise
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
 
 f = h5py.File('mnist_weights_norm_100.h5', 'r')
+print("loaded weights")
 
-seed = 71111104105116104328210110010012110
+seed = 71111104105116104328210110010012110 # "Gohith Reddy" -> Hex -> decimal without spaces
 normalize = True
 if normalize:
     train_images = random_noise(train_images/255.0, rng = seed)
     test_images = random_noise(test_images/255.0, rng = seed)
+    print("finished normalizing")
 
 weights = [f['dense']['dense'],
            f['dense_1']['dense_1']]
+
 weights_nueron_num = [0]*len(weights)
 
 data = 1
@@ -79,17 +82,20 @@ def multiply(a, b):
 correct = 0
 nums = {
 }
-
+print("starting multipliation")
+start_time = time.time()
 total = 1000 #60k
 for i, image in enumerate(test_images[:1000]):
     prediction = predict(image)
-    print(str(prediction) + " " + str(label))
     label = test_labels[i]
+    print(str(prediction) + " " + str(label))
     if prediction == label:
         correct += 1 
     else:
         nums[str(prediction) + " " + str(label)] = nums.get(str(prediction) + " " + str(label), 0) + 1
 
+end_time = time.time()
 print(correct/total)
 
 print(nums)
+print(f'time {end_time - start_time}')
