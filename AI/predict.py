@@ -6,7 +6,7 @@ import sys
 digipot = True
 if digipot:
   sys.path.append("../Multiplication_ASIC")
-  from multiply import multiply as ms
+  from multiply import multiply as m
 import os
 os.chdir("AI")
 from tensorflow.keras.datasets import mnist
