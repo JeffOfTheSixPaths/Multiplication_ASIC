@@ -15,6 +15,7 @@ from skimage.util import random_noise
 
 # Load the dataset into training and testing data
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
+print("Loaded MNIST")
 
 f = h5py.File('mnist_weights_norm_100.h5', 'r')
 print("loaded weights")
